@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.comment.model.dao.CommentDAO">
+	<!-- 댓글 등록 -->
+	<insert id="write" parameterType="comment">
+		insert into comment(board_no,
+		user_id, content)
+		values (#{boardNo}, #{userId}, #{content})
+	</insert>
+	<!-- 댓글 조회 -->
+	<select id="searchByBoardNo" parameterType="int"
+		resultType="comment">
+		select comment_no commentNo, board_no boardNo, m.user_id
+		userId, m.img_url profileImg, user_name userName, content, create_at
+		createAt
+		from comment c join members m using(user_id)
+		where board_no = #{boardNo}
+	</select>
+	<!-- 댓글 삭제 -->
+	<delete id="delete" parameterType="int">
+		delete from comment
+		where comment_no = #{commentNo}
+	</delete>
+</mapper>

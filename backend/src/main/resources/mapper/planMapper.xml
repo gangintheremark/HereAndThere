@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.plan.model.dao.PlanDAO">
+	<!-- 태그별 여행코스 리스트 조회 -->
+	<select id="searchByTag" parameterType="int"
+		resultType="planDetail">
+		select plan_id planId, user_id userId, title, distance, sido_code
+		sidoCode,
+		date_format(create_at, '%Y-%m-%d') createAt, likes from plan
+		<where>
+			<if test="sidoCode != 0">
+				sido_code = #{sidoCode}
+			</if>
+		</where>
+		order by plan_id desc
+	</select>
+
+	<!-- 베스트3 여행코스 조회 -->
+	<select id="getBestPlans" resultType="planDetail">
+		select plan_id planId,
+		user_id userId, title, distance, sido_code sidoCode,
+		date_format(create_at, '%Y-%m-%d') createAt, likes from plan
+		order by
+		likes desc
+		limit 3
+	</select>
+
+	<!-- 인기순 리뷰 조회 -->
+	<select id="getPlansByLikes" parameterType="int"
+		resultType="planDetail">
+		select plan_id planId, user_id userId, title, distance, sido_code
+		sidoCode,
+		date_format(create_at, '%Y-%m-%d') createAt, likes from plan
+		<where>
+			<if test="sidoCode != 0">
+				sido_code = #{sidoCode}
+			</if>
+		</where>
+		order by likes desc
+	</select>
+
+	<!-- 최신순 리뷰 조회 -->
+	<select id="getRecentPlans" parameterType="int"
+		resultType="planDetail">
+		select plan_id planId, user_id userId, title, distance, sido_code
+		sidoCode,
+		date_format(create_at, '%Y-%m-%d') createAt, likes from plan
+		<where>
+			<if test="sidoCode != 0">
+				sido_code = #{sidoCode}
+			</if>
+		</where>
+		order by create_at desc
+	</select>
+
+	<!-- 여행코스 상세 조회 -->
+	<select id="searchByPlanId" parameterType="int"
+		resultType="planDetail">
+		select plan_id planId, user_id userId, title, distance,
+		sido_code sidoCode,
+		date_format(create_at, '%Y-%m-%d') createAt, likes
+		from plan
+		where plan_id =
+		${planId}
+	</select>
+	<select id="searchCourseByPlanId" parameterType="int"
+		resultType="attraction">
+		select attraction_info.content_id contentId,
+		content_type_id contentTypeId, title, addr1, addr2, zipcode zipCode,
+		tel, first_image imgUrl, sido_code sido, gugun_code gugun, latitude,
+		longitude from plan_course left outer join attraction_info
+		on
+		plan_course.content_id = attraction_info.content_id
+		where plan_id = #{planId}
+		order by course_num
+	</select>
+
+	<!-- 리뷰 좋아요 확인 -->
+	<select id="checkPlanLike" resultType="boolean"
+		parameterType="planLikeRequest">
+		SELECT EXISTS(
+		select 1 from plan_likes
+		where plan_id =
+		#{planId} and user_id = #{userId}
+		) as isLiked
+	</select>
+
+	<!-- 여행코스 등록 -->
+	<insert id="writePlan" parameterType="planDetail">
+		insert into plan
+		(user_id,
+		title, distance, sido_code)
+		values (
+		#{userId},
+		#{title},
+		#{distance},
+		#{sidoCode}
+		)
+	</insert>
+
+	<insert id="writePlanCourse" parameterType="planPlace">
+		insert into
+		plan_course
+		(plan_id, course_num, content_id)
+		values (#{planId},
+		#{courseNum}, #{contentId})
+	</insert>
+
+	<select id="getPlanId" resultType="int">
+		SELECT LAST_INSERT_ID() AS plan_id
+	</select>
+
+	<!--여행코스 삭제 -->
+	<delete id="deletePlan" parameterType="int">
+		CALL
+		delete_plan(#{planId});
+	</delete>
+
+	<!--여행코스 좋아요 -->
+	<insert id="likePlan" parameterType="planLikeRequest">
+		CALL
+		insert_plan_like(#{planId}, #{userId});
+	</insert>
+
+	<!--여행코스 좋아요 취소 -->
+	<delete id="cancelLikePlan" parameterType="planLikeRequest">
+		CALL
+		delete_plan_like(#{planId}, #{userId});
+	</delete>
+
+
+</mapper>

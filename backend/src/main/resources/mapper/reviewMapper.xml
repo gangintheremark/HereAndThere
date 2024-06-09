@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.review.model.dao.ReviewDAO">
+	<!-- 태그별 리뷰 조회 -->
+	<select id="searchByTag" parameterType="int" resultType="review">
+		select
+		review_id reviewId, user_id userId, title, content, sido_code
+		sidoCode,
+		date_format(create_at,
+		'%Y-%m-%d') createAt, img_url imgURL,
+		likes, star_rating starRating
+		from review
+		<where>
+        <if test="sidoCode != 0">
+            sido_code = #{sidoCode}
+        </if>
+    </where>
+		order by review_id desc
+	</select>
+	
+	<!-- 베스트3 리뷰 조회 -->
+	<select id="getBestReviews" resultType="review">
+		select
+		review_id reviewId, user_id userId, title, content, sido_code
+		sidoCode,
+		date_format(create_at,
+		'%Y-%m-%d') createAt, img_url imgURL,
+		likes, star_rating starRating
+		from review
+		order by likes desc
+		limit 3
+	</select>
+	
+	<!-- 인기순 리뷰 조회 -->
+	<select id="getReviewsByLikes" parameterType="int" resultType="review">
+		select
+		review_id reviewId, user_id userId, title, content, sido_code
+		sidoCode,
+		date_format(create_at,
+		'%Y-%m-%d') createAt, img_url imgURL,
+		likes, star_rating starRating
+		from review
+		<where>
+        <if test="sidoCode != 0">
+            sido_code = #{sidoCode}
+        </if>
+    </where>
+		order by likes desc
+	</select>
+	
+	<!-- 최신순 리뷰 조회 -->
+	<select id="getRecentReviews" parameterType="int" resultType="review">
+		select
+		review_id reviewId, user_id userId, title, content, sido_code
+		sidoCode,
+		date_format(create_at,
+		'%Y-%m-%d') createAt, img_url imgURL,
+		likes, star_rating starRating
+		from review
+		<where>
+        <if test="sidoCode != 0">
+            sido_code = #{sidoCode}
+        </if>
+    </where>
+		order by create_at desc
+	</select>
+
+	<!-- 리뷰 상세 조회 -->
+	<select id="searchByReviewId" parameterType="int"
+		resultType="review">
+		select
+		review_id reviewId, user_id userId, title, content,
+		sido_code
+		sidoCode,
+		date_format(create_at,
+		'%Y-%m-%d') createAt, img_url
+		imgURL,
+		likes, star_rating starRating
+		from review
+		where review_id =
+		${reviewId}
+		order by review_id desc
+	</select>
+	
+	<!-- 리뷰 좋아요 확인 -->
+	<select id="checkReviewLike" resultType="boolean" parameterType="ReviewLikeRequest">
+    SELECT EXISTS(
+        SELECT 1 FROM review_likes
+        WHERE review_id = #{reviewId} AND user_id = #{userId}
+    ) as isLiked
+</select>
+
+	<!--리뷰 등록 -->
+	<insert id="writeReview" parameterType="review">
+		insert into review
+		(user_id, title, content, sido_code, img_url, star_rating)
+		values (
+		#{userId},
+		#{title},
+		#{content},
+		#{sidoCode},
+		#{imgUrl},
+		#{starRating}
+		)
+	</insert>
+
+	<!--리뷰 삭제 -->
+	<delete id="deleteReview" parameterType="int">
+		CALL
+		delete_review(#{reviewId});
+	</delete>
+
+	<!--리뷰 좋아요 -->
+	<insert id="likeReview" parameterType="reviewLikeRequest">
+		CALL
+		insert_review_like(#{reviewId}, #{userId});
+	</insert>
+
+	<!--리뷰 좋아요 취소 -->
+	<delete id="cancelLikeReview" parameterType="reviewLikeRequest">
+		CALL
+		delete_review_like(#{reviewId}, #{userId});
+	</delete>
+
+
+</mapper>

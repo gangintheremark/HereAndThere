@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.trip.model.dao.TripDAO">
+	<select id="getAttListByParams" parameterType="search"
+		resultType="Attraction">
+	select content_id contentId, content_type_id contentTypeId, content_type contentType, title,
+		addr1, addr2, zipcode, tel, first_image imgUrl, latitude, longitude
+		from attraction_info join content_type using(content_type_id)
+		where 1 = 1
+		<if test="sido != 0">
+		and sido_code = #{sido}
+		</if>
+		<if test="gugun != 0">
+			and gugun_code = #{gugun}
+		</if>
+		<if test="type != 0">
+			and content_type_id = #{type}
+		</if>
+		<if test="keyword != null and keyword != ''">
+			and (title like concat('%', #{keyword}, '%')
+			or addr1 like concat('%', #{keyword}, '%')
+			or addr2 like concat('%', #{keyword}, '%')
+			)
+		</if>
+		order by content_id
+	</select>
+
+	<select id="getSido" resultType="Sido">
+		select sido_code, left(sido_name,2) sido_name from
+		sido
+	</select>
+
+	<select id="getGugun" parameterType="int" resultType="Gugun">
+		select
+		gugun_code code, gugun_name name from gugun where sido_code =
+		#{sido_code}
+	</select>
+
+	<select id="getContent" resultType="Content">
+		select content_type_id contentTypeId, content_type ContentType from
+		content_type
+	</select>
+
+
+</mapper>
