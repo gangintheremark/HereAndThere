@@ -105,6 +105,8 @@
 
 <br/>
 
+![](https://velog.velcdn.com/images/gangintheremark/post/6e494f82-a06e-4d86-addc-c25a208cc77f/image.png)
+
 <table>
     <tr align="center">
         <td><img src="https://velog.velcdn.com/images/gangintheremark/post/f79a60b3-5ed3-43b9-a465-9de5f11fc420/image.gif"><br/>회원기능</td>
