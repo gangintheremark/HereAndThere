@@ -9,22 +9,22 @@
 
 <table align="center">
     <tr align="center">
-    <td align="center">
-        <a href="https://github.com/gangintheremark">
-            <img src="https://avatars.githubusercontent.com/u/81904943?v=4" width="100" style="border-radius: 30%">
-            <br />
-            <b>gangintheremark</b>
-        </a>
-    </td>
-    <td align="center">
+        <td style="min-width: 150px;">
+            <a href="https://github.com/gangintheremark">
+              <img src="https://avatars.githubusercontent.com/u/81904943?v=4" width="150" style="border-radius: 30%">
+              <br />
+              <b>gangintheremark</b>
+            </a>
+        </td>
+        <td style="min-width: 150px;">
         <a href="https://github.com/rkdmf1026">
-            <img src="https://avatars.githubusercontent.com/u/50603273?v=4?" width="100" style="border-radius: 30%">
+            <img src="https://avatars.githubusercontent.com/u/50603273?v=4?" width="150" style="border-radius: 30%">
             <br />
             <b>rkdmf1026</b>
         </a> 
-    </td>
-  </tr>
-      <tr align="center">
+        </td>
+    </tr>
+    <tr align="center">
         <td>
            🙆 남경민
         </td>
@@ -33,7 +33,6 @@
         </td>
     </tr>
 </table>
-
 
 ## 기술 스택
 
