@@ -36,36 +36,41 @@
 
 ## 🛠️ 기술 스택
 
- <table>
+ <table align="center">
 	<tr>
         <th rowspan="2">FrontEnd</th>
     	<th>Framework and Libraries</th> 
-        <td>Vue.js, AXIOS, Bootstrap </td>
+        <td>                 <img src="https://img.shields.io/badge/Vue.js-4FC08D?logo=vuedotjs&logoColor=ffffff">
+                <img src="https://img.shields.io/badge/axios-5A29E4?logo=axios&logoColor=ffffff">
+                <img src="https://img.shields.io/badge/bootstrap-7952B3?logo=bootstrap&logoColor=ffffff"></td>
     </tr> 
     <tr>
-    	<th>Build Tool</th> 
-        <td>Vite</td>
+    	<th>Build</th> 
+        <td><img src="https://img.shields.io/badge/Vite-646CFF?logo=vite&logoColor=ffffff"></td>
     </tr>
     	<tr>
         <th rowspan="5">BackEnd</th>
     	<th>Framework</th> 
-        <td>SpringBoot</td>
+        <td><img src="https://img.shields.io/badge/springboot-6DB33F?logo=springboot&logoColor=ffffff"></td>
     </tr> 
     <tr>
-    	<th>Build Tool</th> 
-        <td>Maven</td>
+    	<th>Build</th> 
+        <td><img src="https://img.shields.io/badge/maven-C71A36?logo=apachemaven&logoColor=ffffff"></td>
     </tr>
     <tr>
     	<th>DB & Access</th> 
-        <td>MySQL, MyBatis</td>
+        <td><img src="https://img.shields.io/badge/mysql-4479A1?logo=mysql&logoColor=ffffff">
+        <img src="https://img.shields.io/badge/MyBatis-000000">  
+</td>
     </tr>
     <tr>
     	<th>API</th> 
-        <td>REST API, Swagger</td>
+        <td><img src="https://img.shields.io/badge/REST API-FF5A5F">   <img src="https://img.shields.io/badge/swagger-85EA2D?logo=swagger&logoColor=000000">
+</td>
     </tr>
         <tr>
     	<th>Service</th> 
-        <td>AWS S3</td>
+        <td><img src="https://img.shields.io/badge/Amazon S3-569A31?logo=amazons3&logoColor=ffffff"> <img src="https://img.shields.io/badge/kakao Maps API-FFCD00">  </td>
     </tr>
 
  </table>
